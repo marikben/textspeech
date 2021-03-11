@@ -1,12 +1,19 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { Button, StyleSheet, TextInput, View  } from 'react-native';
+import * as Speech from 'expo-speech';
 
 export default function App() {
+  const [text, setText] = useState('');
+  const speak = () => {
+    Speech.speak(text);
+  };
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <TextInput placeholder='Type what you want to hear' style={styles.input}
+        onChangeText={(text) => setText(text)}
+        value={text}/> 
+      <Button title="Press to hear text" onPress={speak} />
     </View>
   );
 }
@@ -18,4 +25,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  input: {
+    marginTop: 30, 
+    marginBottom: 10,
+    fontSize: 18,
+    width: 200, 
+    height: 45,
+    borderColor: 'gray', 
+    borderWidth: 1
+  }
 });
